@@ -48,7 +48,7 @@ export const Projects = () => {
       {loading ? (
         <div className="flex justify-center h-64"><div className="w-16 h-16 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div></div>
       ) : (
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 relative z-10">
           {projects.map((project) => {
             let tags = [];
             try { tags = JSON.parse(project.tags || '[]'); } catch { tags = typeof project.tags === 'string' ? project.tags.split(',') : []; }
@@ -61,9 +61,9 @@ export const Projects = () => {
                   className="group relative glass-card p-[2px] rounded-3xl overflow-hidden cursor-pointer h-full"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-400 via-brand-800 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-spin-slow"></div>
-                  <div className="relative bg-brand-950/90 backdrop-blur-xl h-full rounded-[22px] p-8 flex flex-col justify-between">
+                  <div className="relative bg-brand-950/90 backdrop-blur-xl h-full rounded-[22px] p-5 sm:p-8 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-2xl font-extrabold text-white mb-4 group-hover:text-brand-300 transition-colors uppercase tracking-wide">{project.title}</h3>
+                      <h3 className="text-lg sm:text-2xl font-extrabold text-white mb-3 sm:mb-4 group-hover:text-brand-300 transition-colors uppercase tracking-wide">{project.title}</h3>
                       <p className="text-brand-200 text-sm leading-relaxed mb-6 opacity-80">{project.description}</p>
                     </div>
                     <div>

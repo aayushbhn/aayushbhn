@@ -11,7 +11,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import BlogDetail from './pages/BlogDetail';
 
 const PublicLayout = () => (
-  <div className="relative min-h-screen overflow-x-hidden selection:bg-brand-500 selection:text-white pb-32">
+  <div className="relative min-h-screen overflow-x-hidden selection:bg-brand-500 selection:text-white pb-12 sm:pb-32">
     <div 
       className="fixed inset-0 z-[-1] bg-center bg-cover bg-no-repeat transition-transform duration-[20s] ease-linear scale-110 motion-safe:animate-pulse"
       style={{ backgroundImage: 'url("/hero-bg.png")' }}

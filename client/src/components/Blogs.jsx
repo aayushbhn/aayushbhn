@@ -50,20 +50,20 @@ export const Blogs = () => {
       {loading ? (
         <div className="flex justify-center h-64"><div className="w-16 h-16 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div></div>
       ) : (
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }} className="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
+        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-10 relative z-10">
           {blogs.map((blog) => (
             <Link to={`/blog/${blog.slug}`} key={blog.id}>
               <motion.div 
                 variants={itemAnim}
                 whileHover={{ scale: 1.02 }}
-                className="group cursor-pointer glass p-8 rounded-3xl border border-brand-800/80 hover:border-brand-500/50 transition-all flex flex-col justify-between overflow-hidden relative h-full"
+                className="group cursor-pointer glass p-5 sm:p-8 rounded-3xl border border-brand-800/80 hover:border-brand-500/50 transition-all flex flex-col justify-between overflow-hidden relative h-full"
               >
                 <div className="absolute inset-0 bg-brand-900/0 group-hover:bg-brand-900/40 transition-colors z-0"></div>
                 <div className="relative z-10 block">
                   <span className="text-xs font-mono text-brand-400 mb-4 block">
                     {new Date(blog.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </span>
-                  <h3 className="text-2xl font-bold text-white mb-4 leading-snug group-hover:text-brand-200">{blog.title}</h3>
+                  <h3 className="text-lg sm:text-2xl font-bold text-white mb-3 sm:mb-4 leading-snug group-hover:text-brand-200">{blog.title}</h3>
                   <p className="text-brand-300 line-clamp-3 leading-relaxed opacity-80">{blog.content}</p>
                 </div>
                 <div className="relative z-10 mt-6 pt-6 border-t border-brand-800/50 flex justify-between items-center text-sm font-bold text-brand-500 uppercase tracking-widest">

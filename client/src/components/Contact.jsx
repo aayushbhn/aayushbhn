@@ -25,7 +25,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="w-full max-w-4xl mx-auto py-32 px-6">
+    <section id="contact" className="w-full max-w-4xl mx-auto py-16 sm:py-24 md:py-32 px-4 sm:px-6">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
