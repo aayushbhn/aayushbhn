@@ -37,10 +37,10 @@ export const Projects = () => {
   };
 
   return (
-    <section id="projects" className="w-full max-w-7xl mx-auto py-32 px-6 overflow-hidden relative">
-      <div className="text-center mb-20 relative z-10">
-        <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white tracking-tight">Full-Stack <span className="text-gradient">Portfolio</span></h2>
-        <p className="text-brand-300 max-w-3xl mx-auto text-xl font-light">
+    <section id="projects" className="w-full max-w-7xl mx-auto py-16 sm:py-24 md:py-32 px-4 sm:px-6 overflow-hidden relative">
+      <div className="text-center mb-10 sm:mb-20 relative z-10">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 text-white tracking-tight">Full-Stack <span className="text-gradient">Portfolio</span></h2>
+        <p className="text-brand-300 max-w-3xl mx-auto text-base sm:text-xl font-light">
           A showcase of 18 scalable infrastructures, hybrid AI integrations, and natively engineered platforms.
         </p>
       </div>

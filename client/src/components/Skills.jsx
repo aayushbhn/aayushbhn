@@ -46,12 +46,12 @@ export const Skills = () => {
   };
 
   return (
-    <section id="skills" className="w-full max-w-7xl mx-auto py-32 px-6 overflow-hidden relative">
+    <section id="skills" className="w-full max-w-7xl mx-auto py-16 sm:py-24 md:py-32 px-4 sm:px-6 overflow-hidden relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-500/5 rounded-full blur-[120px] pointer-events-none"></div>
       
-      <div className="text-center mb-24 relative z-10">
-        <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white tracking-tight">Technical <span className="text-gradient">Arsenal</span></h2>
-        <p className="text-brand-300 max-w-2xl mx-auto text-xl font-light">
+      <div className="text-center mb-12 sm:mb-24 relative z-10">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 text-white tracking-tight">Technical <span className="text-gradient">Arsenal</span></h2>
+        <p className="text-brand-300 max-w-2xl mx-auto text-base sm:text-xl font-light">
           A definitive breakdown of the specific languages, infrastructure, and architectural logic powering my 18+ production deployments.
         </p>
       </div>
@@ -61,13 +61,13 @@ export const Skills = () => {
         initial="hidden" 
         whileInView="show" 
         viewport={{ once: true, margin: "-100px" }} 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 relative z-10"
       >
         {skillCategories.map((category, index) => (
           <motion.div 
             key={index}
             variants={itemAnim}
-            className={`glass-card p-10 rounded-3xl border-t border-l border-brand-800/30 shadow-xl shadow-brand-950 hover:shadow-brand-500/10 transition-shadow ${category.light} !border-opacity-40`}
+            className={`glass-card p-6 sm:p-10 rounded-3xl border-t border-l border-brand-800/30 shadow-xl shadow-brand-950 hover:shadow-brand-500/10 transition-shadow ${category.light} !border-opacity-40`}
           >
             <div className="mb-6 pb-6 border-b border-brand-800/80">
               <h3 className={`text-sm font-black uppercase tracking-widest ${category.color} tracking-wide`}>{category.title}</h3>

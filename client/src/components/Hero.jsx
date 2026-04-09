@@ -10,7 +10,7 @@ export const Hero = () => {
   const scale = useTransform(scrollY, [0, 400], [1, 0.9]);
 
   return (
-    <section className="relative w-full h-screen flex flex-col justify-center items-center px-6 overflow-hidden perspective-1000">
+    <section className="relative w-full h-screen flex flex-col justify-center items-center px-4 sm:px-6 overflow-hidden perspective-1000">
       <motion.div 
         style={{ y: y1, opacity, scale }}
         className="z-10 text-center max-w-5xl mx-auto"
@@ -21,7 +21,7 @@ export const Hero = () => {
            transition={{ duration: 1.2, ease: "easeOut" }}
            className="mb-8"
         >
-          <span className="px-6 py-2 bg-brand-900/50 border border-brand-500/30 rounded-full text-brand-300 font-medium tracking-[0.3em] uppercase text-xs backdrop-blur-md shadow-[0_0_20px_rgba(74,120,123,0.3)]">
+          <span className="inline-block px-4 sm:px-6 py-2 bg-brand-900/50 border border-brand-500/30 rounded-full text-brand-300 font-medium tracking-[0.15em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-xs backdrop-blur-md shadow-[0_0_20px_rgba(74,120,123,0.3)] text-center leading-relaxed">
             Senior Full-Stack Engineer & IT Manager
           </span>
         </motion.div>
@@ -31,7 +31,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, type: "spring", bounce: 0.2 }}
-            className="text-7xl md:text-9xl font-black text-white tracking-tighter leading-[0.9]"
+            className="text-5xl sm:text-7xl md:text-9xl font-black text-white tracking-tighter leading-[0.9]"
           >
             Aayush <span className="text-gradient">Bhandari</span>
           </motion.h1>
@@ -41,7 +41,7 @@ export const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5, delay: 0.8 }}
-          className="text-xl md:text-3xl text-brand-200/80 max-w-3xl mx-auto font-light leading-relaxed mb-12"
+          className="text-base sm:text-xl md:text-3xl text-brand-200/80 max-w-3xl mx-auto font-light leading-relaxed mb-8 sm:mb-12"
         >
           Architecting highly scalable, AI-driven infrastructure and massive e-commerce platforms. Over 18 production-grade projects deployed.
         </motion.p>
@@ -50,14 +50,14 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="flex flex-col sm:flex-row justify-center items-center gap-6"
+          className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 w-full"
         >
           <motion.a 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href={`${API_URL}/api/cv`}
             download
-            className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 hover:to-brand-300 text-white rounded-full font-bold transition-all duration-300 shadow-[0_0_30px_rgba(74,120,123,0.5)]"
+            className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 hover:to-brand-300 text-white rounded-full font-bold transition-all duration-300 shadow-[0_0_30px_rgba(74,120,123,0.5)] text-center text-sm sm:text-base"
           >
             Download CV
           </motion.a>
@@ -65,7 +65,7 @@ export const Hero = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href="#projects" 
-            className="w-full sm:w-auto px-10 py-5 glass text-white rounded-full font-bold transition-all duration-300"
+            className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 glass text-white rounded-full font-bold transition-all duration-300 text-center text-sm sm:text-base"
           >
             Explore Projects
           </motion.a>
@@ -73,7 +73,7 @@ export const Hero = () => {
             whileHover={{ scale: 1.05, backgroundColor: "rgba(62,97,101,0.5)" }}
             whileTap={{ scale: 0.95 }}
             href="#about" 
-            className="w-full sm:w-auto px-10 py-5 glass text-white rounded-full font-bold transition-all duration-300"
+            className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 glass text-white rounded-full font-bold transition-all duration-300 text-center text-sm sm:text-base"
           >
             View Experience
           </motion.a>
