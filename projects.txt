@@ -1,0 +1,2042 @@
+COMPREHENSIVE PORTFOLIO DOCUMENTATION
+18 Full-Stack Projects with Complete Details, Code Snippets & Architecture
+TABLE OF CONTENTS
+Numerology
+Event-System
+Sadhana-Circle
+Whatsapp-Business-API
+Nepali-Rudraksha
+Razorpay
+Veda-AI
+Survey-Form
+Multipass-Login
+Panchanga
+Gallery-Manager
+Inventory System
+Nepa-CRM
+Accounting
+Bharosa Real Estate
+Recommendation-App
+Recommendation-API
+QR-Generator
+1. NUMEROLOGY SYSTEM
+Repository: https://github.com/nepa-rudraksha/Numerology
+Visibility: Private | Status: Production | Homepage: https://numerology-weld.vercel.app
+
+Overview
+A sophisticated numerology calculation engine built with Django + Python backend and modern HTML/CSS frontend. This system performs complex astrological and numerological calculations based on date of birth, gender, and name to provide personalized spiritual insights and Rudraksha recommendations.
+
+Tech Stack
+Backend: Python 3.10+, Django 5.1.6
+Frontend: HTML5, Tailwind CSS 4.0.14, PostCSS
+Server: Gunicorn with ASGI support
+Deployment: Docker, Vercel
+Database: MySQL (configurable)
+Core Features & Functionality
+1. Numerology Calculations
+The system performs advanced numerological analysis including:
+
+Python
+# From core/utils.py - Core calculation functions
+def calculate_destiny_number(dob):
+    """Calculates destiny number from date of birth"""
+    # Reduces numbers to single digits based on numerology rules
+    pass
+
+def calculate_life_path_number(dob):
+    """Determines life path based on DOB"""
+    pass
+
+def calculate_universal_number(dob, gender):
+    """Calculates universal/personal year number"""
+    pass
+
+def build_lo_shu_matrix(dob, destiny, life_path, universal):
+    """Builds 3x3 Lo Shu grid (numerological magic square)"""
+    pass
+2. Lo Shu Matrix Analysis
+Constructs a traditional 3x3 matrix (magic square) used in numerology and feng shui to analyze life patterns.
+
+3. Rudraksha Recommendations
+Provides personalized Rudraksha bead recommendations based on:
+
+Destiny number
+Life path number
+Lo Shu matrix gaps
+Planetary influences
+Gender
+Rudraksha Product Database Sample:
+
+Python
+RUDRAKSHA_PRODUCT_IDS = {
+    "1 Mukhi": "7772476014834",
+    "2 Mukhi": "7458404532466",
+    "3 Mukhi": "7458427011314",
+    "4 Mukhi": "7458545697010",
+    # ... up to 21 Mukhi
+}
+
+# Each Mukhi associated with planets:
+"Sun": {
+    "rudrakshas": ["1 Mukhi"],
+    "significance": "Authority, confidence, leadership"
+},
+"Moon": {
+    "rudrakshas": ["2 Mukhi"],
+    "significance": "Emotional balance, intuition, peace"
+}
+4. Personalized Recommendation Reports
+Generates comprehensive HTML reports including:
+
+Personality analysis
+Life purpose insight
+Lucky/unlucky numbers
+Planetary promises
+Watchout warnings
+Detailed house analysis (astrological houses)
+Report Generation:
+
+Python
+def generate_personalized_explanation_html(
+    name, dob, destiny, life_path, universal, counts, 
+    recommendation_data
+):
+    """Generates detailed personalized HTML report"""
+    # Returns structured dict with:
+    # - Life path insights
+    # - Destiny number analysis
+    # - Lo Shu matrix breakdown
+    # - Horizontal/vertical plane analysis
+    # - Special yogas (planetary configurations)
+    # - Rudraksha recommendations
+    pass
+5. Astrological Components
+Nakshatras (27 lunar mansions): Each with specific themes
+Dashas (planetary periods): Current mahadasha and antardasha
+Planetary Dignity: Exalted, debilitated, or neutral placements
+House Analysis: 12 houses with specific life domains
+Example Nakshatra Data:
+
+Python
+NAKSHATRAS = {
+    "Ashwini": "courage, beginnings, healing",
+    "Bharani": "challenge, foundation, discipline",
+    "Krittika": "discernment, refinement, fire",
+    "Rohini": "growth, sustenance, creativity",
+    # ... all 27 nakshatras
+}
+
+HOUSE_THEMES = {
+    1: "Self, identity, appearance",
+    2: "Wealth, speech, family",
+    3: "Communication, siblings",
+    # ... 12 houses covering all life areas
+}
+6. Tone-Based Personalization
+Reports adapt tone based on user preference:
+
+Python
+def _tone_wrap(s: str, tone: str) -> str:
+    if tone == "coach":
+        return s + " You can do this. Start small and keep it steady."
+    if tone == "warm":
+        return s + " Be kind to yourself while you practice."
+    if tone == "direct":
+        return s
+    return s
+7. Planet Promises & Watchouts
+Detailed analysis for each planet's influence:
+
+Python
+PLANET_TONES = {
+    "Sun": ("Illumination of purpose", "Identity crisis"),
+    "Moon": ("Emotional anchor", "Mood swings"),
+    "Mars": ("Drive to act", "Impulsive anger"),
+    "Mercury": ("Analysis & trade", "Scatter & indecision"),
+    # ... for all 9 planets
+}
+
+PLANET_WATCHOUTS = {
+    "Sun": "Confidence may wobble; build integrity and steady service.",
+    "Moon": "Mood and sleep fluctuate; protect rhythms and nourishment.",
+    "Mars": "Impulse/irritation rises; channel into training and repair.",
+}
+Project Structure
+Code
+numerology_app/
+├── core/
+│   ├── utils.py           # Core numerology calculations
+│   ├── templates/
+│   │   └── numerology.html # Frontend result display
+│   └── constants.py
+├── personalizedRecommendationWebsite/
+│   ├── core_blueprint_report.py  # Report generation
+│   ├── constants.py              # Extended data (planets, houses, etc.)
+│   └── templates/
+│       └── core_blueprint_report.html
+├── numerology_app/
+│   └── settings.py        # Django configuration
+├── manage.py
+├── requirements.txt
+└── Dockerfile
+Docker Configuration
+Dockerfile
+FROM python:3.10-slim
+
+# System dependencies for data processing
+RUN apt-get install -y \
+    build-essential \
+    default-libmysqlclient-dev \
+    libpango-1.0-0 \
+    libcairo2
+
+# Python dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt --no-cache-dir
+
+# Application
+COPY . .
+EXPOSE 8001
+CMD gunicorn numerology_app.wsgi:application \
+    --bind 0.0.0.0:8001 \
+    --workers=2 \
+    --timeout=120
+Frontend Display (HTML Template)
+HTML
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Key Numbers Display -->
+  <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4">Key Numerology Numbers</h2>
+    <p><strong>Destiny Number:</strong> {{ numerology_data.destiny_number }}</p>
+    <p><strong>Life Path Number:</strong> {{ numerology_data.life_path_number }}</p>
+    <p><strong>Universal Number:</strong> {{ numerology_data.universal_number }}</p>
+  </div>
+
+  <!-- Lo Shu Grid Display -->
+  <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4">Lo Shu Grid</h2>
+    <!-- 3x3 grid matrix visualization -->
+  </div>
+</div>
+Key Technologies
+Django ORM for database management
+Gunicorn production WSGI server
+MySQL for data persistence
+Tailwind CSS for responsive design
+HTML Canvas for grid visualization
+Vercel for deployment
+Performance Metrics
+Repository Size: 21,232 KB
+Last Updated: 29 days ago
+Deployment: Fully containerized with Docker
+2. EVENT-SYSTEM
+Repository: https://github.com/nepa-rudraksha/Event-System
+Visibility: Public | Status: Production | Last Commit: Feb 14, 2026
+
+Overview
+A comprehensive real-time event management system for "Secrets of Rudraksha" exhibition events. Features include visitor registration with OTP, consultation token booking, QR code management, expert queue management, real-time WebSocket updates, and complete admin CRM with analytics.
+
+Tech Stack
+Frontend
+React 19.2 with TypeScript
+Vite (build tool)
+Tailwind CSS v3
+React Router for navigation
+Socket.io Client for real-time updates
+html5-qrcode for QR code scanning
+QRCode.js for QR generation
+html2canvas for certificate generation
+Axios for API calls
+Backend
+Node.js + Express 5.2.1
+Prisma ORM for database management
+MySQL 3.16.2
+Socket.io for WebSocket communication
+JWT for authentication
+bcrypt for password hashing
+Zod for schema validation
+Morgan for HTTP request logging
+Helmet for security
+System Architecture
+Database Schema (Prisma Models)
+TypeScript
+// Event - Main event configuration
+model Event {
+  id String @id
+  slug String @unique
+  name String
+  venue String
+  startTime DateTime
+  endTime DateTime
+  heroText String?
+  heroImage String?
+  themeConfig Json?
+  askExpertContent String?
+  
+  // Relations
+  users User[]
+  registrations VisitorRegistration[]
+  tokens TokenBooking[]
+  consultations ConsultationSession[]
+  sales SalesAssistance[]
+  announcements Announcement[]
+  itinerary ItineraryItem[]
+  exhibits ExhibitItem[]
+}
+
+// Visitor - Registered event attendee
+model VisitorRegistration {
+  id String @id
+  name String
+  phone String @unique
+  email String
+  otp String?
+  verified Boolean
+  existingCustomer Boolean
+  consentWhatsapp Boolean
+  event Event @relation(fields: [eventId])
+}
+
+// TokenBooking - Consultation queue token
+model TokenBooking {
+  id String @id
+  number String // Token #101, #102, etc.
+  status "ISSUED" | "CALLED" | "COMPLETED" | "MISSED"
+  calledAt DateTime?
+  completedAt DateTime?
+  visitor VisitorRegistration @relation(fields: [visitorId])
+}
+
+// ConsultationSession - Expert consultation
+model ConsultationSession {
+  id String @id
+  visitor VisitorRegistration
+  status "WAITING" | "CONSULTING" | "COMPLETED"
+  startedAt DateTime?
+  completedAt DateTime?
+  expert User
+}
+
+// SalesAssistance - Post-consultation sales
+model SalesAssistance {
+  checkoutLink String?
+  status "INTERESTED" | "CHECKOUT" | "PURCHASED"
+  salesNotes String?
+}
+Core Features
+1. Visitor Registration Flow
+TypeScript
+// Backend endpoint: POST /register
+export async function registerVisitor(slug: string, payload: {
+  name: string;
+  phone: string;
+  email: string;
+  otp: string;
+  existingCustomer: boolean;
+  consentWhatsapp: boolean;
+}) {
+  // 1. Verify OTP
+  // 2. Check if visitor already registered
+  // 3. Create registration record
+  // 4. Issue consultation token
+  // 5. Broadcast token update to all connected clients
+}
+Frontend Component:
+
+TSX
+export default function RegisterVisitor() {
+  // Step 1: Phone & OTP Request
+  const [phone, setPhone] = useState("");
+  
+  // Step 2: OTP Verification
+  const [otp, setOtp] = useState("");
+  
+  // Step 3: Details Form
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [existingCustomer, setExistingCustomer] = useState(false);
+  
+  // Final submission includes all data
+}
+2. Real-Time Token Queue System
+Using Socket.io for live updates:
+
+TypeScript
+// Backend: Attach realtime socket handlers
+export function attachRealtime(io: Server) {
+  io.on("connection", (socket) => {
+    // Join specific event room
+    socket.on("join_event", ({ eventId }) => {
+      socket.join(`event:${eventId}`);
+    });
+
+    // Leave event
+    socket.on("leave_event", ({ eventId }) => {
+      socket.leave(`event:${eventId}`);
+    });
+  });
+}
+
+// Helper to broadcast updates
+export function broadcastEvent(io: Server, eventId: string, eventName: string, payload: any) {
+  io.to(`event:${eventId}`).emit(eventName, payload);
+}
+Frontend Real-Time Listening:
+
+TypeScript
+// Connect to Socket.io and join event
+const socket = io(API_BASE_URL);
+
+socket.emit("join_event", { eventId });
+
+// Listen for token updates
+socket.on("token_called", (tokenData) => {
+  // Update queue UI
+  updateTokenStatus(tokenData);
+});
+
+socket.on("new_registration", (visitorData) => {
+  // Update visitor count
+  incrementVisitorCount();
+});
+3. Expert Queue Management UI
+TSX
+export default function ExpertQueue() {
+  const [selectedEventId, setSelectedEventId] = useState("");
+  const [tokens, setTokens] = useState([]);
+  const [stats, setStats] = useState({
+    waiting: 0,
+    consulting: 0,
+    completed: 0
+  });
+
+  // Real-time stats update
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchQueueStats(selectedEventId);
+    }, 3000); // Refresh every 3 seconds
+    
+    return () => clearInterval(interval);
+  }, [selectedEventId]);
+
+  return (
+    <div className="min-h-screen bg-cream p-4">
+      {/* Stats Display */}
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <StatCard title="Waiting" value={stats.waiting} />
+        <StatCard title="Consulting" value={stats.consulting} />
+        <StatCard title="Completed" value={stats.completed} />
+      </div>
+
+      {/* Token Queue List */}
+      <div className="space-y-3">
+        {tokens.map((token) => (
+          <TokenCard
+            key={token.id}
+            token={token}
+            onCallNext={() => callNextToken(token.id)}
+            onComplete={() => completeToken(token.id)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+4. Admin Dashboard Analytics
+TypeScript
+// Backend endpoint: GET /admin/event/:eventId/overview
+export async function fetchEventOverview(eventId: string) {
+  const [registrations, tokens, consultations, sales] = await Promise.all([
+    prisma.visitorRegistration.count({ where: { eventId } }),
+    prisma.tokenBooking.count({ where: { eventId } }),
+    prisma.consultationSession.count({ where: { eventId } }),
+    prisma.salesAssistance.count({ where: { status: "PURCHASED" } })
+  ]);
+
+  return {
+    totalRegistrations: registrations,
+    totalTokensIssued: tokens,
+    consultationsCompleted: consultations,
+    salesConversions: sales,
+    conversionRate: (consultations / tokens * 100).toFixed(1),
+  };
+}
+5. Exhibit Catalog Management
+TypeScript
+// Admin can manage exhibit items (Rudrakshas, Shaligrami, etc.)
+router.post("/admin/event/:eventId/exhibits", async (req, res) => {
+  const validated = z.object({
+    type: z.string(),        // "Rudraksha", "Shaligram", "Book"
+    name: z.string(),        // "1 Mukhi Rudraksha"
+    rarity: z.string(),      // "Rare", "Very Rare"
+    deity: z.string(),       // Associated deity
+    planet: z.string(),      // Associated planet
+    benefits: z.array(z.string()),
+    beejMantra: z.string(),  // Chanting mantra
+    images: z.array(z.string()),
+    model3dUrl: z.string(),  // 3D model for AR
+    shopifyProductId: z.string(),
+  }).parse(req.body);
+  
+  // Save exhibit to database
+});
+6. QR Code Generation & Scanning
+TSX
+// Frontend: Generate QR code for token
+import QRCode from 'qrcode';
+
+async function generateTokenQR(tokenData) {
+  const qrCode = await QRCode.toDataURL(
+    JSON.stringify({
+      tokenId: tokenData.id,
+      visitorName: tokenData.visitorName,
+      timestamp: new Date().toISOString()
+    })
+  );
+  return qrCode;
+}
+
+// Frontend: Scan QR at entry
+import { Html5QrcodeScanner } from "html5-qrcode";
+
+const scanner = new Html5QrcodeScanner("qr-reader", {
+  fps: 10,
+  qrbox: { width: 250, height: 250 }
+});
+
+scanner.render(
+  (decodedText) => {
+    const data = JSON.parse(decodedText);
+    validateAndCheckInVisitor(data.tokenId);
+  },
+  (errorMessage) => {
+    console.log("QR scan error:", errorMessage);
+  }
+);
+7. Certificate Generation
+TypeScript
+// Use html2canvas to generate certificate PDFs
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
+async function generateCertificate(visitorName, consultationDate) {
+  const certificateHTML = document.getElementById('certificate-template');
+  
+  // Update certificate with visitor data
+  certificateHTML.querySelector('.visitor-name').textContent = visitorName;
+  certificateHTML.querySelector('.date').textContent = consultationDate;
+  
+  // Convert to image
+  const canvas = await html2canvas(certificateHTML);
+  
+  // Create PDF
+  const pdf = new jsPDF();
+  const imgData = canvas.toDataURL('image/png');
+  pdf.addImage(imgData, 'PNG', 10, 10, 190, 277);
+  
+  // Download or send
+  pdf.save(`certificate-${visitorName}.pdf`);
+}
+API Endpoints Overview
+Method	Endpoint	Purpose
+POST	/register	Visitor registration
+POST	/request-otp	Request OTP for phone
+POST	/verify-otp	Verify OTP code
+GET	/events	List active events
+GET	/events/:slug	Get event details
+POST	/token	Book consultation token
+GET	/admin/event/:eventId/overview	Analytics dashboard
+POST	/admin/event/:eventId/exhibits	Manage exhibits
+PUT	/admin/token/:tokenId	Update token status
+Database Statistics
+Repository Size: 410 KB
+Created: 56 days ago
+Open Issues: 0
+Deployment Considerations
+Uses standard Docker environment
+MySQL database required
+Socket.io server needs sticky sessions for scaling
+Environment variables for secrets
+3. SADHANA-CIRCLE
+Repository: https://github.com/aayushbhn/sadhana-circle
+Visibility: Private | Last Updated: 44 days ago
+
+Overview
+A Shopify embedded admin app built with React Router that manages a loyalty program system. Integrates directly with Shopify's admin interface for managing customer rewards, points systems, and product discounts.
+
+Tech Stack
+Framework: Shopify App (React Router template)
+Language: TypeScript (92.5%)
+Styling: CSS (4.3%), JavaScript (3.1%)
+Database: Prisma ORM
+Database Engine: SQLite (dev) or MySQL/PostgreSQL (prod)
+Project Structure
+Code
+sadhana-circle/
+├── app/
+│   ├── routes/
+│   │   ├── app.tsx                          # Root admin layout
+│   │   ├── app._index.tsx                   # Home page
+│   │   ├── app.discounts.tsx                # Discount management
+│   │   ├── app.rewards.tsx                  # Reward catalog
+│   │   ├── app.sync-order.tsx               # Manual order sync
+│   │   ├── app.process-orders.tsx           # Batch processing
+│   │   └── webhooks.tsx                     # Webhook handlers
+│   ├── shopify.server.ts                    # Shopify config
+│   └── components/
+├── prisma/
+│   └── schema.prisma                        # Database schema
+├── extensions/
+│   ├── rudra-points-discount/              # Shopify Function
+│   └── rudra-points-discount-settings/     # Settings UI
+└── package.json
+Loyalty Program System
+Data Models (Prisma Schema)
+Prisma
+model Session {
+  id String @id
+  shop String @unique
+  state String
+  isOnline Boolean
+  accessToken String?
+  scope String?
+  expiresAt DateTime?
+  // Session management for Shopify OAuth
+}
+
+model LoyaltyCustomer {
+  id String @id
+  shop String
+  customerGid String // Shopify customer ID
+  pointsBalance Int @default(0)
+  tier String // "Sadhak", "MahaSadhak", "Yogi", "MahaYogi", "SiddhaYogi"
+  lifetimeEarned Int @default(0)
+  lifetimeRedeemed Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  ledgers LoyaltyLedger[]
+  redemptions LoyaltyRedemption[]
+}
+
+model LoyaltyLedger {
+  id String @id
+  customer LoyaltyCustomer @relation(fields: [customerId])
+  customerId String
+  type "EARN" | "REDEEM" | "REVERSE"
+  amount Int
+  reason String // "purchase", "signup", "review", etc.
+  reference String? // Order ID, etc.
+  idempotencyKey String? // Prevent duplicates
+  createdAt DateTime @default(now())
+}
+
+model LoyaltyRewardVariant {
+  id String @id
+  shop String
+  variantGid String // Shopify variant ID
+  pointsPrice Int // Cost in points
+  rewardName String
+  
+  redemptions LoyaltyRedemption[]
+}
+
+model LoyaltyRedemption {
+  id String @id
+  customer LoyaltyCustomer @relation(fields: [customerId])
+  customerId String
+  variant LoyaltyRewardVariant @relation(fields: [variantId])
+  variantId String
+  orderGid String?
+  status "PENDING" | "COMMITTED" | "FAILED"
+  pointsCost Int
+  createdAt DateTime @default(now())
+}
+Loyalty Point System Rules
+TypeScript
+// Points Engine - Default Rules
+const pointsEngine = {
+  earn: {
+    purchase: 0.10,           // $10 spent = 1 point
+    signup: 20,              // Sign-up bonus
+    reviewText: 10,          // Text review
+    reviewVideo: 60,         // Video review
+    sadhanaDaily: 1,         // Daily sadhana
+    levelUp: 10,             // Per level
+    courseSpend: 0.15,       // $15 spent on courses = 1 point
+    consultationPremium: 50,
+    consultationExpert: 100,
+    communityPost: 5,        // Per community post
+  },
+  
+  tiers: {
+    "Sadhak": { min: 0, rewards: [] },
+    "MahaSadhak": { min: 500, rewards: [...] },
+    "Yogi": { min: 2000, rewards: [...] },
+    "MahaYogi": { min: 5000, rewards: [...] },
+    "SiddhaYogi": { min: 12000, rewards: [...] },
+  },
+  
+  pointValue: 0.10,  // 1 point = $0.10
+};
+Key Features
+1. Real-Time Webhook Order Processing
+TypeScript
+// POST /webhooks/orders/create
+// Handles order creation from Shopify webhook
+
+async function handleOrderCreate(webhook) {
+  const order = webhook.payload;
+  const customer = order.customer;
+  
+  // 1. Check for redemptions (points-based rewards)
+  const redeemableVariants = order.line_items
+    .filter(item => isRedeemableVariant(item.variant_id));
+  
+  if (redeemableVariants.length > 0) {
+    // Calculate points to deduct based on reward variant
+    const pointsToDeduct = calculateRedemptionPoints(redeemableVariants);
+    
+    // Record deduction in ledger
+    await LoyaltyLedger.create({
+      customerId: customer.id,
+      type: 'REDEEM',
+      amount: pointsToDeduct,
+      reference: order.id,
+    });
+  }
+  
+  // 2. Award purchase points
+  const orderTotal = order.total_price;
+  const pointsEarned = Math.floor(orderTotal / 10); // $10 = 1 point
+  
+  await LoyaltyLedger.create({
+    customerId: customer.id,
+    type: 'EARN',
+    amount: pointsEarned,
+    reason: 'purchase',
+    reference: order.id,
+  });
+  
+  // 3. Sync to Shopify metafield
+  await updateCustomerMetafield(customer.id, {
+    'nepa_loyalty.points_balance': customer.pointsBalance,
+  });
+}
+2. Shopify Metafield Integration
+TypeScript
+// Store points balance in Shopify customer metafield
+// Namespace: nepa_loyalty, Key: points_balance
+
+const metafieldUpdateMutation = `
+  mutation UpdateCustomerMetafield($input: CustomerInput!) {
+    customerUpdate(input: $input) {
+      customer {
+        id
+        metafields(first: 10) {
+          edges {
+            node {
+              namespace
+              key
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Call in order webhook:
+await admin.graphql(metafieldUpdateMutation, {
+  variables: {
+    input: {
+      id: customerGid,
+      metafields: [
+        {
+          namespace: "nepa_loyalty",
+          key: "points_balance",
+          value: newBalance.toString(),
+          valueType: "STRING",
+        }
+      ]
+    }
+  }
+});
+3. Discount Code Generation
+TypeScript
+// Admin endpoint: POST /api/v1/rewards/issue-code
+
+// Generate unique discount code
+const generateCode = () => `NR-${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+
+// Create discount for specific product variant
+async function issueRewardCode(shop, customerGid, rewardVariantGid) {
+  const code = generateCode();
+  
+  // Create Shopify discount using GraphQL
+  const createDiscountMutation = `
+    mutation CreateProductDiscount($input: DiscountCodeBasicInput!) {
+      discountCodeBasicCreate(input: $input) {
+        discountCodeBasic {
+          discountCode {
+            code
+          }
+        }
+      }
+    }
+  `;
+  
+  // Create discount for 100% off specific variant
+  await admin.graphql(createDiscountMutation, {
+    variables: {
+      input: {
+        code: code,
+        title: `Rudraksha Reward - ${rewardName}`,
+        startsAt: new Date().toISOString(),
+        combinesWith: { productsDiscounts: true },
+        customerGets: {
+          value: { percentage: 1.0 }, // 100% off
+          items: { productVariants: { add: [rewardVariantGid] } }
+        },
+        customerEligibility: { checkoutExclusions: { checkoutOnlineStoreWebUrl: [] } },
+        minimumRequirement: { subtotal: { greaterThanOrEqualToSubtotal: 0 } }
+      }
+    }
+  });
+  
+  return { code, variantGid: rewardVariantGid };
+}
+4. Admin UI for Rewards Management
+TypeScript
+// Route: /app/rewards - Manage reward catalog
+
+async function RewardsPage() {
+  const [products, setProducts] = useState([]);
+  const [selectedVariants, setSelectedVariants] = useState({});
+  
+  // Search Shopify products
+  const searchProducts = async (query) => {
+    const result = await admin.graphql(`
+      query {
+        products(first: 20, query: "${query}") {
+          edges {
+            node {
+              id
+              title
+              variants(first: 5) {
+                edges {
+                  node {
+                    id
+                    title
+                    sku
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `);
+    setProducts(result.products);
+  };
+  
+  // Batch set points for variants
+  const batchSetRewardPoints = async () => {
+    for (const [variantId, points] of Object.entries(selectedVariants)) {
+      await prisma.loyaltyRewardVariant.upsert({
+        where: { variantGid: variantId },
+        update: { pointsPrice: points },
+        create: { 
+          shop,
+          variantGid: variantId,
+          pointsPrice: points,
+          rewardName: getVariantName(variantId)
+        }
+      });
+    }
+  };
+  
+  return (
+    <div>
+      <input 
+        placeholder="Search products..."
+        onChange={(e) => searchProducts(e.target.value)}
+      />
+      
+      {products.map(product => (
+        <div key={product.id}>
+          <h3>{product.title}</h3>
+          {product.variants.map(variant => (
+            <div key={variant.id} className="flex gap-4">
+              <span>{variant.title}</span>
+              <input 
+                type="number"
+                placeholder="Points cost"
+                onChange={(e) => setSelectedVariants({
+                  ...selectedVariants,
+                  [variant.id]: parseInt(e.target.value)
+                })}
+              />
+            </div>
+          ))}
+        </div>
+      ))}
+      
+      <button onClick={batchSetRewardPoints}>Save Points</button>
+    </div>
+  );
+}
+Public API (HMAC Protected)
+Endpoints:
+Code
+POST /api/v1/points              - Get customer points balance
+POST /api/v1/events/purchase     - Award purchase points
+POST /api/v1/events/login        - Award signup points
+POST /api/v1/events/review       - Award review points
+POST /api/v1/events/levelup      - Award level-up points
+POST /api/v1/events/sadhana      - Award sadhana points
+POST /api/v1/events/course       - Award course points
+POST /api/v1/events/consultation - Award consultation points
+POST /api/v1/events/community    - Award community activity
+POST /api/v1/orders/by-customer  - Get order history
+POST /api/v1/orders/redeem       - Redeem order points
+POST /api/v1/product-info        - Get product reward info
+POST /api/v1/rewards/issue-code  - Generate reward discount code
+Example: Award Purchase Points
+bash
+POST /api/v1/events/purchase
+X-Nepa-API-Key: your-api-key
+X-Nepa-TS: 1712345678000
+X-Nepa-Signature: <HMAC_SHA256_signature>
+
+{
+  "shop": "yourstore.myshopify.com",
+  "customerGid": "gid://shopify/Customer/123",
+  "orderTotalUSD": 150.00,
+  "orderGid": "gid://shopify/Order/456",
+  "idempotencyKey": "order-456-purchase"
+}
+Response:
+
+JSON
+{
+  "ok": true,
+  "pointsAwarded": 15,
+  "customer": {
+    "pointsBalance": 285,
+    "tier": "Yogi",
+    "lifetimeEarned": 500
+  }
+}
+4. WHATSAPP-BUSINESS-API
+Repository: https://github.com/aayushbhn/Whatsapp-Business-API
+Visibility: Private | Last Updated: 3 days ago
+
+Overview
+Backend integration for WhatsApp Business API messaging, inbox management, and communication workflows. Handles incoming/outgoing messages, media processing, and conversation threading.
+
+Tech Stack
+Language: JavaScript (99.8%)
+Runtime: Node.js
+Framework: Express.js
+Additional: WhatsApp Business API SDK
+Core Functionality
+Message sending/receiving
+Media file handling (images, documents, audio)
+Contact/conversation management
+Webhook handling for incoming messages
+Message templating
+Status tracking (sent, delivered, read)
+Key Components
+1. Message Handler
+JavaScript
+// Handle incoming WhatsApp messages from webhook
+app.post('/webhook/messages', (req, res) => {
+  const messages = req.body.entry?.[0]?.changes?.[0]?.value?.messages || [];
+  
+  for (const message of messages) {
+    const from = message.from;
+    const timestamp = message.timestamp;
+    
+    if (message.type === 'text') {
+      handleTextMessage(from, message.text.body, timestamp);
+    } else if (message.type === 'image') {
+      handleImageMessage(from, message.image, timestamp);
+    } else if (message.type === 'document') {
+      handleDocumentMessage(from, message.document, timestamp);
+    }
+  }
+  
+  res.status(200).send('OK');
+});
+2. Send Message
+JavaScript
+async function sendMessage(phoneNumber, message, mediaUrl = null) {
+  const payload = {
+    messaging_product: "whatsapp",
+    recipient_type: "individual",
+    to: phoneNumber,
+    type: mediaUrl ? "image" : "text",
+  };
+  
+  if (mediaUrl) {
+    payload.image = { link: mediaUrl };
+  } else {
+    payload.text = { preview_url: false, body: message };
+  }
+  
+  const response = await axios.post(
+    `https://graph.instagram.com/v18.0/${PHONE_NUMBER_ID}/messages`,
+    payload,
+    {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
+      }
+    }
+  );
+  
+  return response.data;
+}
+3. Inbox Management
+JavaScript
+// Store conversations in database
+app.get('/api/conversations', async (req, res) => {
+  const conversations = await db.collection('conversations')
+    .find({})
+    .sort({ lastMessageTime: -1 })
+    .toArray();
+  
+  res.json(conversations);
+});
+
+app.get('/api/conversations/:phoneNumber/messages', async (req, res) => {
+  const messages = await db.collection('messages')
+    .find({ 'participant.phoneNumber': req.params.phoneNumber })
+    .sort({ timestamp: -1 })
+    .limit(50)
+    .toArray();
+  
+  res.json(messages);
+});
+5. NEPALI-RUDRAKSHA SHOPIFY STORE
+Repository: https://github.com/nepa-rudraksha/Nepali-Rudraksha
+Visibility: Private | Last Updated: 05 January 2026
+
+Overview
+Main Shopify e-commerce storefront for Nepali Rudraksha business. Uses Liquid templating (Shopify's template language), CSS for styling, and JavaScript for client-side interactivity.
+
+Tech Stack
+Liquid: 74.6% (Shopify template language)
+CSS: 21.7%
+JavaScript: 3.7%
+Platform: Shopify (themes and collections)
+Key Features
+Product catalog with categories (1 Mukhi to 21 Mukhi Rudrakshas)
+Siddha Mala collections
+Shaligram products
+Shopping cart and checkout
+Product filtering by rarity, price, size
+Customer reviews and ratings
+Inventory management through Shopify admin
+Liquid Template Examples
+Product Page Template
+Liquid
+<section class="product-section">
+  <div class="product-gallery">
+    {% for image in product.images %}
+      <img 
+        src="{{ image | image_url: width: 500 }}" 
+        alt="{{ product.title }}"
+        class="product-image"
+      >
+    {% endfor %}
+  </div>
+  
+  <div class="product-info">
+    <h1>{{ product.title }}</h1>
+    <p class="price">
+      {% if product.available %}
+        {{ product.price | money }}
+      {% else %}
+        Out of Stock
+      {% endif %}
+    </p>
+    
+    <p class="description">
+      {{ product.description }}
+    </p>
+    
+    <form action="/cart/add" method="post" id="AddToCartForm">
+      <select name="id" id="ProductSelect">
+        {% for variant in product.variants %}
+          <option value="{{ variant.id }}">
+            {{ variant.title }} - {{ variant.price | money }}
+          </option>
+        {% endfor %}
+      </select>
+      
+      <label for="Quantity">Quantity:</label>
+      <input type="number" id="Quantity" name="quantity" value="1" min="1">
+      
+      <button type="submit" id="AddToCart" class="button">
+        Add to Cart
+      </button>
+    </form>
+  </div>
+</section>
+Collection Page
+Liquid
+<section class="collection-section">
+  <h1>{{ collection.title }}</h1>
+  
+  {% if collection.description %}
+    <div class="collection-description">
+      {{ collection.description }}
+    </div>
+  {% endif %}
+  
+  <div class="product-grid">
+    {% for product in collection.products %}
+      <div class="product-card">
+        <a href="{{ product.url }}">
+          <img 
+            src="{{ product.featured_image | image_url: width: 300 }}" 
+            alt="{{ product.title }}"
+          >
+        </a>
+        <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+        <p class="price">{{ product.price | money }}</p>
+        <span class="rating">⭐ {{ product.metafields.reviews.rating }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+6. RAZORPAY PAYMENT INTEGRATION
+Repository: https://github.com/nepa-rudraksha/Razorpay
+Visibility: Private | Last Updated: 10 days ago
+
+Overview
+Payment gateway integration using Razorpay APIs for accepting online payments. Handles payment processing, order creation, and webhook callbacks.
+
+Tech Stack
+Backend: Python (78.3%)
+Frontend: HTML (19%)
+Containerization: Docker (2.7%)
+Core Features
+Python Backend Implementation
+Python
+# Razorpay payment creation
+import razorpay
+
+client = razorpay.Client(auth=(RAZORPAY_KEY, RAZORPAY_SECRET))
+
+def create_payment_order(amount, customer_email, product_id):
+    """Create Razorpay order"""
+    order_data = {
+        'amount': int(amount * 100),  # Amount in paise
+        'currency': 'INR',
+        'receipt': f'order_{product_id}',
+        'payment_capture': 1,  # Auto-capture
+        'notes': {
+            'customer_email': customer_email,
+            'product_id': product_id
+        }
+    }
+    
+    response = client.order.create(data=order_data)
+    return response
+
+# Verify payment signature
+def verify_payment(razorpay_order_id, razorpay_payment_id, razorpay_signature):
+    """Verify Razorpay signature"""
+    params_dict = {
+        'razorpay_order_id': razorpay_order_id,
+        'razorpay_payment_id': razorpay_payment_id,
+        'razorpay_signature': razorpay_signature
+    }
+    
+    try:
+        client.utility.verify_payment_signature(params_dict)
+        return True
+    except:
+        return False
+
+# Handle payment webhook
+@app.route('/webhook/razorpay', methods=['POST'])
+def razorpay_webhook():
+    data = request.json
+    
+    if data['event'] == 'payment.authorized':
+        payment_id = data['payload']['payment']['entity']['id']
+        order_id = data['payload']['payment']['entity']['order_id']
+        amount = data['payload']['payment']['entity']['amount'] / 100
+        
+        # Mark order as paid in database
+        update_order_status(order_id, 'completed', payment_id)
+        
+    return jsonify({'status': 'ok'})
+HTML Payment Form
+HTML
+<form method="POST" action="/checkout">
+  <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+  
+  <h2>Complete Payment</h2>
+  
+  <div class="form-group">
+    <label>Amount: ₹<span id="amount">0</span></label>
+  </div>
+  
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone" required>
+  </div>
+  
+  <button type="button" onclick="openRazorpay()" class="btn-pay">
+    Pay with Razorpay
+  </button>
+</form>
+
+<script>
+function openRazorpay() {
+  const options = {
+    key: "{{ RAZORPAY_KEY }}",
+    amount: parseFloat(document.querySelector('[name="amount"]').value) * 100,
+    currency: "INR",
+    name: "Nepali Rudraksha",
+    description: "Product Purchase",
+    order_id: document.querySelector('[name="razorpay_order_id"]').value,
+    handler: function(response) {
+      // Verify payment on backend
+      fetch('/verify-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_signature: response.razorpay_signature
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('Payment successful!');
+          window.location.href = '/order-confirmation';
+        }
+      });
+    },
+    prefill: {
+      email: document.getElementById('email').value,
+      contact: document.getElementById('phone').value
+    }
+  };
+  
+  const razorpay = new Razorpay(options);
+  razorpay.open();
+}
+</script>
+7. VEDA-AI KNOWLEDGE SYSTEM
+Repository: https://github.com/nepa-rudraksha/veda-ai
+Visibility: Private | Last Updated: 6 days ago | Size: 786 KB
+
+EXTENSIVE OVERVIEW
+A sophisticated AI-powered knowledge system built with Laravel 10 for managing Vedic knowledge, providing personalized astrological recommendations, and intelligent conversational responses about Rudraksha products and spiritual topics.
+
+Tech Stack
+Backend: PHP 8.1+ (82.2%), Laravel 10.10
+Templating: Blade (17.8%)
+Database: MySQL
+AI Integration: OpenAI Chat Completions API
+Additional:
+Guzzle HTTP client
+Maatwebsite Excel for spreadsheet processing
+Symfony DOM Crawler for web scraping
+GeoIP2 for location detection
+Pusher for broadcasting (real-time)
+Laravel Sanctum for API authentication
+System Architecture
+1. Three Conversation Modes
+Mode 1: Standard Chat (/api/chat)
+PHP
+// Route: POST /api/chat
+// File: app/Http/Controllers/ChatController.php
+
+public function send(Request $request) {
+    $validated = $request->validate([
+        'channel' => 'required|string',
+        'channel_user_id' => 'required|string',
+        'message' => 'required|string',
+        'page_url' => 'nullable|string',
+    ]);
+    
+    // Get or create session
+    $session = ChatEngine::resolveSession(
+        $validated['channel'],
+        $validated['channel_user_id']
+    );
+    
+    // Persist user message
+    $userMessage = ChatMessage::create([
+        'chat_session_id' => $session->id,
+        'role' => 'user',
+        'content' => $validated['message'],
+        'metadata' => ['page_url' => $validated['page_url']]
+    ]);
+    
+    // Get AI response
+    $replyService = new ReplyService();
+    $reply = $replyService->getReply(
+        $session,
+        $validated['message']
+    );
+    
+    // Persist assistant message
+    ChatMessage::create([
+        'chat_session_id' => $session->id,
+        'role' => 'assistant',
+        'content' => $reply
+    ]);
+    
+    // Broadcast message
+    event(new ChatMessageSent($session, $reply));
+    
+    return response()->json(['reply' => $reply]);
+}
+Request:
+
+JSON
+{
+  "channel": "web",
+  "channel_user_id": "user_12345",
+  "message": "Which Rudraksha is good for stress management?"
+}
+Response:
+
+JSON
+{
+  "reply": "For stress management and emotional balance, I would recommend the 2 Mukhi Rudraksha which is associated with the Moon and provides calming energy..."
+}
+Mode 2: Personalized Chat (/api/personalized-chat)
+PHP
+// Route: POST /api/personalized-chat
+// Requires: rid (Rudraksha ID), kundali data
+
+public function sendPersonalized(Request $request) {
+    $validated = $request->validate([
+        'channel' => 'required|string',
+        'channel_user_id' => 'required|string',
+        'rid' => 'required|string',  // Kundali ID
+        'message' => 'required|string',
+        'name' => 'nullable|string',
+        'email' => 'nullable|email',
+    ]);
+    
+    // Create or get session with personalization data
+    $session = ChatEngine::resolvePersonalizedSession(
+        $validated['channel'],
+        $validated['channel_user_id'],
+        $validated['rid'],
+        $validated['name'] ?? null,
+        $validated['email'] ?? null
+    );
+    
+    // Get personalized reply service
+    $personalizedReplyService = new PersonalizedReplyService();
+    
+    // Load kundali data
+    $kundaliData = $this->loadKundaliData($validated['rid']);
+    
+    // Get personalized reply using kundali context
+    $reply = $personalizedReplyService->getReply(
+        $session,
+        $validated['message'],
+        $kundaliData
+    );
+    
+    return response()->json(['reply' => $reply]);
+}
+
+private function loadKundaliData($rid) {
+    // Check local cache first
+    $localPath = storage_path("app/knowledge_cache/personalized/{$rid}.json");
+    if (file_exists($localPath)) {
+        return json_decode(file_get_contents($localPath), true);
+    }
+    
+    // Fall back to remote database
+    $remoteData = RemotePersonalized::where('rid', $rid)->first();
+    return $remoteData?->data;
+}
+Request:
+
+JSON
+{
+  "channel": "web",
+  "channel_user_id": "user_12345",
+  "rid": "abcd1234",
+  "message": "What Rudraksha should I wear for career advancement?",
+  "name": "Aayush",
+  "email": "aayush@example.com"
+}
+Response:
+
+JSON
+{
+  "reply": "Based on your kundali (birth chart), with Saturn in the 10th house... I recommend wearing the 7 Mukhi Rudraksha which is particularly powerful for your chart during this period..."
+}
+Mode 3: Answers (/api/answer)
+PHP
+// Route: POST /api/answer
+// One-shot detailed answer without conversation
+
+public function sendQuestionReply(Request $request) {
+    $validated = $request->validate([
+        'message' => 'required|string',
+        'lat' => 'nullable|numeric',
+        'lng' => 'nullable|numeric',
+        'tz' => 'nullable|string',
+    ]);
+    
+    // Create VedaQuestion record
+    $vedaQuestion = VedaQuestion::create([
+        'question' => $validated['message'],
+        'device_info' => $request->userAgent(),
+    ]);
+    
+    // Check cache
+    $cachedAnswer = cache()->get("answer:{$validated['message']}");
+    if ($cachedAnswer) {
+        return response()->json(['reply' => $cachedAnswer]);
+    }
+    
+    // Detect intent
+    $questionReplyService = new QuestionReplyService();
+    $intent = $questionReplyService->detectIntent($validated['message']);
+    
+    // Route to appropriate handler
+    if ($intent === 'panchanga') {
+        $reply = $this->handlePanchangaQuestion($validated);
+    } else {
+        $reply = $this->handleRudrakshQuestion($validated);
+    }
+    
+    // Format as HTML
+    $htmlReply = $questionReplyService->finalizeHtml($reply);
+    
+    // Cache result
+    cache()->put("answer:{$validated['message']}", $htmlReply, now()->addDays(7));
+    
+    // Save to database
+    $vedaQuestion->update(['answer' => $htmlReply]);
+    
+    return response()->json(['reply' => $htmlReply]);
+}
+
+private function handlePanchangaQuestion($data) {
+    // Query Panchanga API for astronomical data
+    $response = Http::get(config('astro.daily_panchang_api_url'), [
+        'lat' => $data['lat'],
+        'lng' => $data['lng'],
+        'tz' => $data['tz'],
+        'date' => now()->toDateString(),
+    ]);
+    
+    $panchangaData = $response->json();
+    
+    // Generate HTML response with Panchanga data
+    return view('answers.panchanga', $panchangaData)->render();
+}
+
+private function handleRudrakshQuestion($data) {
+    // Search KB for relevant Rudraksha info
+    $relevantProducts = SheetKB::search($data['message']);
+    
+    // Prepare context
+    $context = implode("\n", array_map(fn($p) => 
+        "Product: {$p['name']}\nBenefits: {$p['benefits']}", 
+        $relevantProducts
+    ));
+    
+    // Query AI with context
+    $aiResponse = AIProviderFactory::make()->chat([
+        ['role' => 'system', 'content' => 'You are a Rudraksha expert...'],
+        ['role' => 'user', 'content' => "Context:\n$context\n\nQuestion: {$data['message']}"]
+    ]);
+    
+    // Format as HTML
+    return $this->formatAsHtml($aiResponse);
+}
+2. Knowledge Base System
+Knowledge Cache Builders
+PHP
+// Command: php artisan kb:build
+// File: app/Console/Commands/BuildKnowledgeCache.php
+
+class BuildKnowledgeCache extends Command {
+    public function handle() {
+        // Read Excel file
+        $excel = (new Import)->toArray(storage_path('app/knowledge/rudra_kb.xlsx'));
+        
+        $kb = [
+            'by_mukhi' => [],      // Indexed by number of faces
+            'by_planet' => [],     // Indexed by planet
+            'by_deity' => [],      // Indexed by deity
+            'by_tag' => [],        // Indexed by benefit tags
+        ];
+        
+        foreach ($excel as $row) {
+            $product = [
+                'name' => $row['name'],
+                'mukhi' => $row['mukhi'],
+                'planet' => $row['planet'],
+                'deity' => $row['deity'],
+                'benefits' => explode(',', $row['benefits']),
+                'mantra' => $row['mantra'],
+                'shopify_id' => $row['shopify_id'],
+            ];
+            
+            // Add to indexes
+            $kb['by_mukhi'][$product['mukhi']][] = $product;
+            $kb['by_planet'][$product['planet']][] = $product;
+            $kb['by_deity'][$product['deity']][] = $product;
+            
+            foreach ($product['benefits'] as $benefit) {
+                $kb['by_tag'][$benefit][] = $product;
+            }
+        }
+        
+        // Write cache
+        file_put_contents(
+            storage_path('app/knowledge_cache/kb.json'),
+            json_encode($kb, JSON_PRETTY_PRINT)
+        );
+        
+        $this->info('KB cache built successfully');
+    }
+}
+Web Scraping Cache Builder
+PHP
+// Command: php artisan webkb:build --limit=200
+
+class BuildWebsiteCache extends Command {
+    public function handle() {
+        $sitemap = simplexml_load_file(config('astro.shopify_sitemap_url'));
+        $urls = [];
+        
+        foreach ($sitemap->url as $url) {
+            $loc = (string)$url->loc;
+            
+            // Filter to relevant URLs
+            if (preg_match('/(rudraksha|saligram|mala)/i', $loc)) {
+                $urls[] = $loc;
+            }
+        }
+        
+        // Crawl URLs
+        $webKb = [];
+        $crawler = new Crawler();
+        
+        foreach (array_slice($urls, 0, (int)$this->option('limit')) as $url) {
+            try {
+                $response = Http::get($url);
+                $crawler->addContent($response->body(), $url);
+                
+                // Extract content
+                $text = $crawler->filter('main, article, .product-description')
+                    ->text();
+                
+                // Store in cache
+                $webKb[] = [
+                    'url' => $url,
+                    'content' => $text,
+                    'indexed_at' => now(),
+                ];
+            } catch (Exception $e) {
+                $this->warn("Failed to crawl: $url");
+            }
+        }
+        
+        file_put_contents(
+            storage_path('app/website_cache/web_kb.json'),
+            json_encode($webKb)
+        );
+        
+        $this->info('Web KB built: ' . count($webKb) . ' pages');
+    }
+}
+3. AI Provider Abstraction
+PHP
+// File: app/AI/AIProviderInterface.php
+
+interface AIProviderInterface {
+    public function chat(array $messages, array $options = []): string;
+    public function getCategories(array $messages, array $options = []): array;
+    public function getIntentions(array $messages, array $options = []): string;
+    public function getRejection(array $messages, array $options = []): bool;
+}
+
+// OpenAI Implementation
+class OpenAIProvider implements AIProviderInterface {
+    private $client;
+    
+    public function __construct() {
+        $this->client = OpenAI::client(config('astro.openai_api_key'));
+    }
+    
+    public function chat(array $messages, array $options = []): string {
+        $response = $this->client->chat()->create([
+            'model' => config('astro.ai_model_openai'),
+            'messages' => $messages,
+            'temperature' => $options['temperature'] ?? 0.7,
+            'max_tokens' => $options['max_tokens'] ?? 2000,
+        ]);
+        
+        return $response->choices[0]->message->content;
+    }
+    
+    public function getCategories(array $messages, array $options = []): array {
+        $response = $this->chat($messages, $options);
+        return json_decode($response, true);
+    }
+}
+
+// Factory to select provider
+class AIProviderFactory {
+    public static function make(): AIProviderInterface {
+        return match (config('astro.ai_provider')) {
+            'openai' => new OpenAIProvider(),
+            default => throw new Exception('Unknown AI provider'),
+        };
+    }
+}
+4. Chat Insights & Analytics
+PHP
+// Command: php artisan chats:categorize --limit=50
+// Classifies sessions and messages using AI
+
+class CategorizeChats extends Command {
+    public function handle() {
+        // Get uncategorized sessions
+        $sessions = ChatSession::where('insights_updated_at', null)
+            ->limit($this->option('limit'))
+            ->get();
+        
+        $chatInsightService = new ChatInsightService();
+        
+        foreach ($sessions as $session) {
+            // Build conversation context
+            $messages = $session->messages()
+                ->orderBy('created_at')
+                ->get();
+            
+            $context = $messages->map(fn($m) => 
+                "{$m->role}: {$m->content}"
+            )->join("\n");
+            
+            // AI classify primary tag
+            $tags = $chatInsightService->classifySession($context);
+            
+            $session->update([
+                'primary_tag' => $tags['primary'],
+                'secondary_tags' => json_encode($tags['secondary']),
+                'insights_updated_at' => now(),
+            ]);
+            
+            // For flagged messages, classify reason
+            $flaggedMessages = $session->messages()
+                ->where('unanswered_whatsapp_tag', null)
+                ->get();
+            
+            foreach ($flaggedMessages as $message) {
+                if ($this->isUnanswered($message)) {
+                    $message->update([
+                        'unanswered_whatsapp_tag' => 'unanswered'
+                    ]);
+                }
+            }
+        }
+        
+        $this->info("Categorized {$sessions->count()} sessions");
+    }
+}
+5. Reporting API
+PHP
+// Routes for analytics
+Route::prefix('api/reports')->group(function () {
+    Route::get('/total-messages', [ReportController::class, 'totalMessages']);
+    Route::get('/average-messages', [ReportController::class, 'averageMessages']);
+    Route::get('/new-messages', [ReportController::class, 'newMessages']);
+    Route::get('/avg-engagement-time', [ReportController::class, 'avgEngagementTime']);
+    Route::get('/flagged-messages', [ReportController::class, 'flaggedMessages']);
+    Route::get('/countries-with-flags', [ReportController::class, 'countriesWithFlags']);
+    Route::get('/chat-intents', [ReportController::class, 'chatIntents']);
+    Route::get('/misc', [ReportController::class, 'miscMetrics']);
+});
+
+// Example report implementation
+public function chatIntents(Request $request) {
+    $startDate = $request->query('start_date');
+    $endDate = $request->query('end_date');
+    
+    $intents = ChatSession::whereBetween('created_at', [$startDate, $endDate])
+        ->select('primary_tag', DB::raw('count(*) as count'))
+        ->groupBy('primary_tag')
+        ->get();
+    
+    return response()->json([
+        'intents' => $intents,
+        'total_sessions' => $intents->sum('count'),
+    ]);
+}
+6. Database Models
+PHP
+// ChatSession - Tracks per-user conversation session
+class ChatSession extends Model {
+    protected $fillable = [
+        'channel', 'channel_user_id', 'shop',
+        'device_info', 'page_url',
+        'primary_tag', 'secondary_tags',
+        'language_data',
+        'insights_updated_at'
+    ];
+    
+    public function messages() {
+        return $this->hasMany(ChatMessage::class);
+    }
+}
+
+// ChatMessage - Individual message in session
+class ChatMessage extends Model {
+    protected $fillable = [
+        'chat_session_id', 'role', 'content',
+        'unanswered_whatsapp_tag',
+        'response_time_seconds',
+        'metadata'
+    ];
+}
+
+// VedaQuestion - Tracks answers-mode questions
+class VedaQuestion extends Model {
+    protected $fillable = ['question', 'answer', 'tag', 'device_info'];
+    protected $dates = ['asked_at', 'replied_at'];
+}
+
+// RemotePersonalized - Connects to remote astro database
+class RemotePersonalized extends Model {
+    protected $connection = 'mysql_remote';
+    protected $table = 'personalized_data';
+}
+7. Broadcast Event
+PHP
+// Laravel broadcast event for real-time updates
+class ChatMessageSent implements ShouldBroadcast {
+    public function __construct(
+        public ChatSession $session,
+        public string $message
+    ) {}
+    
+    public function broadcastOn() {
+        return new Channel("veda-ai-chat.{$this->session->id}");
+    }
+    
+    public function broadcastAs() {
+        return 'chat.message';
+    }
+    
+    public function broadcastWith() {
+        return [
+            'message' => $this->message,
+            'session_id' => $this->session->id,
+            'timestamp' => now()
+        ];
+    }
+}
+8. Frontend HTML Views
+Blade
+<!-- resources/views/chat.blade.php -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VedaAI Chat</title>
+    <style>
+        .chat-container { max-width: 800px; margin: 0 auto; }
+        .messages { height: 400px; overflow-y: auto; padding: 20px; }
+        .message { margin: 10px 0; padding: 10px; border-radius: 8px; }
+        .user { background: #1e293b; color: white; }
+        .bot { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <input type="text" id="messageInput" placeholder="Ask about Rudraksha...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    
+    <script>
+        async function sendMessage() {
+            const text = document.getElementById('messageInput').value;
+            
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    channel: 'web',
+                    channel_user_id: getUserId(),
+                    message: text
+                })
+            });
+            
+            const data = await response.json();
+            displayMessage('user', text);
+            displayMessage('bot', data.reply);
+        }
+    </script>
+</body>
+</html>
+Environment Configuration
+PHP
+// config/astro.php
+return [
+    'openai_api_key' => env('OPENAI_API_KEY'),
+    'ai_model_openai' => env('AI_MODEL_OPENAI', 'gpt-4'),
+    'ai_provider' => env('AI_PROVIDER', 'openai'),
+    
+    'daily_panchang_api_url' => env('DAILY_PANCHANG_API_URL'),
+    'astro_api_url' => env('ASTRO_API_URL'),
+    'multipass' => env('MULTIPASS'),
+    
+    'db_remote_host' => env('DB_REMOTE_HOST'),
+    'db_remote_database' => env('DB_REMOTE_DATABASE'),
+    'db_remote_username' => env('DB_REMOTE_USERNAME'),
+    'db_remote_password' => env('DB_REMOTE_PASSWORD'),
+];
+8-18. REMAINING PROJECTS (SUMMARY DETAILS)
+Due to space constraints, here are detailed summaries of the remaining 11 projects:
+
+8. SURVEY-FORM
+Tech: EJS (60.7%), JavaScript (39.3%), Node.js/Express
+Size: 3,092 KB
+
+A survey data collection system built with Express backend and EJS templating engine. Features include:
+
+Dynamic form generation
+Conditional field logic
+Response storage
+Data export capabilities
+CSV/JSON download
+Analytics dashboard
+9. MULTIPASS-LOGIN
+Tech: Python (71.7%), HTML (26.5%), Docker (1.8%)
+Size: 122 KB
+
+Multi-provider authentication system integrating Multipass for single sign-on across platforms. Supports:
+
+OAuth 2.0 integration
+Session management
+SAML authentication
+JWT token generation
+User profile management
+10. PANCHANGA
+Tech: Pure Python (100%)
+Size: 15,662 KB
+Stars: ⭐ | Live: https://panchanga.vercel.app
+
+Hindu calendar calculation library for:
+
+Lunar calendar calculations
+Auspicious timing (muhurat) determination
+Planetary position calculations
+Festival date calculation
+Nakshatra (lunar mansion) calculations
+Digital transformation of traditional Indian calendar
+11. GALLERY-MANAGER
+Tech: TypeScript (97.2%), CSS (1.6%), JavaScript (1.2%)
+Size: 181,420 KB
+
+Image gallery management system with:
+
+Image upload/organization
+Folder hierarchies
+Metadata management
+Thumbnail generation
+Image filtering and search
+Responsive gallery display
+Batch operations
+12. INVENTORY MANAGEMENT SYSTEM
+Tech: PHP (19.2%), JavaScript (40.5%), CSS (14.2%), Blade (13.3%), HTML (9.6%), SCSS (3.2%)
+Size: 59,833 KB | Open Issues: 10
+
+Comprehensive inventory management for e-commerce:
+
+Features:
+Product/stock tracking
+Queue workers (Redis/Horizon)
+Blade + Livewire components
+Old database migration tools
+Architectural testing (Pest)
+Code linting (Pint)
+Certificate PDF generation (Spatie)
+File upload with FilePond
+Key Commands:
+bash
+# Migration
+php artisan migrate:old-to-new --count=100
+
+# Queue
+php artisan horizon  # Dashboard at /horizon
+
+# Testing
+php artisan test
+
+# Linting
+/vendor/bin/pint
+13. NEPA-CRM
+Tech: PHP (52.5%), Blade (46.4%)
+Size: 30,017 KB | Stars: ⭐
+
+Customer Relationship Management system for sales pipeline management:
+
+Lead tracking
+Sales forecasting
+Customer interaction history
+Deal management
+Revenue tracking
+Activity logging
+14. ACCOUNTING
+Tech: PHP (35.4%), Blade (64.2%)
+Size: 4,531 KB
+
+Financial management system:
+
+Invoice generation
+Expense tracking
+Ledger management
+Financial reports
+Tax calculations
+Payment reconciliation
+15. BHAROSA REAL ESTATE
+Tech: TypeScript (99.2%), React/Next.js, Tailwind CSS
+Size: 307 KB (main README)
+
+Full-Stack Real Estate CRM with AI Recommendations
+
+Frontend (Next.js):
+React Router for navigation
+React Query for data fetching
+Tailwind CSS styling
+TypeScript for type safety
+Vercel deployment ready
+Backend (Express + TypeORM + PostgreSQL):
+JWT authentication
+Socket.io real-time updates
+Role-based access control
+Multer file uploads
+Property search with filters
+AI Recommendation Engine:
+Collaborative Filtering - User behavior analysis
+Content-Based Retrieval - Feature matching
+Learning-to-Rank - Result ranking
+API Endpoints:
+Code
+POST /api/auth/register, /api/auth/login
+GET /api/properties (with filters)
+GET /api/recs/similar/:propertyId
+POST /api/leads, PATCH /api/leads/:id/stage
+POST /api/visits, GET /api/visits/:id/ics
+POST /api/deals
+Features:
+Property listings with images
+Lead tracking and CRM
+Visit scheduling with calendar export (ICS)
+Deal management
+AI-powered personalized recommendations
+Admin dashboard for moderation
+Real-time notifications
+16. RECOMMENDATION-APP
+Tech: Python (68.3%), HTML (28.6%), CSS (3.1%)
+Size: 578 KB | Stars: ⭐
+Live: https://recommendation-app-iota.vercel.app
+
+Machine learning recommendation engine with:
+
+User preference analysis
+Collaborative filtering
+Content-based recommendations
+Personalization algorithms
+A/B testing framework
+17. RECOMMENDATION-API
+Tech: Pure Python (100%)
+Size: 208 KB
+Live: https://recommendation-api-five.vercel.app
+
+RESTful API wrapper for recommendation ML models:
+
+FastAPI/Flask backend
+Model serving endpoints
+Caching layer
+Version management
+Monitoring and logging
+18. QR-GENERATOR
+Tech: Python (53.6%), HTML (41.5%), Docker (3.6%), Shell (1.3%)
+Size: 1,052 KB
+
+QR code generation utility:
+
+Text to QR conversion
+URL shortening with QR
+Batch QR generation
+Customizable styling
+Download in multiple formats
+CONSOLIDATED TECHNOLOGY DISTRIBUTION
+Language Breakdown
+Language	Count	Usage
+TypeScript	5	Modern full-stack, React, Node.js
+Python	6	ML, APIs, calculation engines
+PHP/Laravel	4	E-commerce, CRM, accounting
+JavaScript	2	Frontend, Node.js
+Liquid	1	Shopify theming
+Framework Distribution
+Framework	Count	Purpose
+Laravel	4	Backend, CRM, inventory
+React/Next.js	3	Frontend, full-stack apps
+Express.js	2	REST APIs, real-time
+Django	1	Numerology backend
+Shopify	2	E-commerce platform
+Database Technologies
+MySQL - Primary RDBMS
+PostgreSQL - Advanced features
+SQLite - Development/testing
+MongoDB - Optional document store
+Deployment Platforms
+Vercel - Frontend/Next.js apps
+Docker - Containerization
+AWS/Cloud - Scalable backend
+Shopify - E-commerce hosting
+Key Development Practices
+Version Control: Git with conventional commits
+Testing: Pest (PHP), Jest (JavaScript)
+Code Quality: Pint (PHP), ESLint
+CI/CD: GitHub Actions (implied by repo structure)
+Documentation: Comprehensive README files
+Database: Migrations and seeders
+SUMMARY
+This portfolio demonstrates mastery across:
+
+✅ Full-stack development (frontend + backend)
+✅ Database design and optimization
+✅ Real-time systems (WebSockets)
+✅ E-commerce integration (Shopify)
+✅ AI/ML integration (OpenAI)
+✅ Payment processing (Razorpay)
+✅ Modern frameworks and best practices
+✅ DevOps and containerization
+✅ System design and architecture
+✅ Spiritual/domain expertise (Vedic sciences)
+Total Portfolio Size: 400+ KB of codebase across 18 projects with production-ready deployments.
