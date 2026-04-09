@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import API_URL from '../config';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -14,7 +15,7 @@ export const Contact = () => {
     e.preventDefault();
     setStatus({ type: 'loading', msg: 'Sending...' });
     try {
-      await axios.post('http://localhost:5001/api/contact', formData);
+      await axios.post(`${API_URL}/api/contact`, formData);
       setStatus({ type: 'success', msg: 'Message sent successfully! I will get back to you soon.' });
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {

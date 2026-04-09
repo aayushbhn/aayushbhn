@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 
 let globalBlogsCache = null;
 
@@ -13,7 +14,7 @@ export const Blogs = () => {
     if (globalBlogsCache) return;
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/blogs');
+        const response = await axios.get(`${API_URL}/api/blogs`);
         globalBlogsCache = response.data;
         setBlogs(response.data);
       } catch (error) {

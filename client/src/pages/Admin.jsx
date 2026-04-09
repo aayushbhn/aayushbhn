@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Reorder } from 'framer-motion';
+import API_URL from '../config';
 
 export default function Admin() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
@@ -26,16 +27,16 @@ export default function Admin() {
   }, [token]);
 
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const fetchProjects = async () => setProjects((await axios.get('http://localhost:5001/api/projects')).data);
-  const fetchBlogs = async () => setBlogs((await axios.get('http://localhost:5001/api/blogs')).data);
-  const fetchInbox = async () => setInbox((await axios.get('http://localhost:5001/api/contacts', config)).data);
+  const fetchProjects = async () => setProjects((await axios.get(`${API_URL}/api/projects`)).data);
+  const fetchBlogs = async () => setBlogs((await axios.get(`${API_URL}/api/blogs`)).data);
+  const fetchInbox = async () => setInbox((await axios.get(`${API_URL}/api/contacts`, config)).data);
 
   const handleReorder = async (newOrder) => {
     if (activeTab === 'projects') {
       setProjects(newOrder); // Optimistic UI update instantly mapped cleanly!
       const payload = newOrder.map((proj, idx) => ({ id: proj.id, sort_order: idx }));
       try {
-        await axios.put('http://localhost:5001/api/projects/reorder', { items: payload }, config);
+        await axios.put(`${API_URL}/api/projects/reorder`, { items: payload }, config);
       } catch (err) {
         console.error("Failed to persist order mathematically.");
       }
@@ -45,7 +46,7 @@ export default function Admin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5001/api/admin/login', { email, password });
+      const res = await axios.post(`${API_URL}/api/admin/login`, { email, password });
       setToken(res.data.token);
       localStorage.setItem('token', res.data.token);
     } catch {
@@ -56,8 +57,8 @@ export default function Admin() {
   const handleProjectSave = async (e) => {
     e.preventDefault();
     const payload = { ...projectForm, tags: projectForm.tags.split(',').map(s => s.trim()) };
-    if (editingId) await axios.put(`http://localhost:5001/api/projects/${editingId}`, payload, config);
-    else await axios.post('http://localhost:5001/api/projects', payload, config);
+    if (editingId) await axios.put(`${API_URL}/api/projects/${editingId}`, payload, config);
+    else await axios.post(`${API_URL}/api/projects`, payload, config);
     setEditingId(null);
     setProjectForm({ title: '', description: '', full_details: '', tags: '', image: '', link: '' });
     fetchProjects();
@@ -65,8 +66,8 @@ export default function Admin() {
 
   const handleBlogSave = async (e) => {
     e.preventDefault();
-    if (editingId) await axios.put(`http://localhost:5001/api/blogs/${editingId}`, blogForm, config);
-    else await axios.post('http://localhost:5001/api/blogs', blogForm, config);
+    if (editingId) await axios.put(`${API_URL}/api/blogs/${editingId}`, blogForm, config);
+    else await axios.post(`${API_URL}/api/blogs`, blogForm, config);
     setEditingId(null);
     setBlogForm({ title: '', content: '', image: '' });
     fetchBlogs();
@@ -78,7 +79,7 @@ export default function Admin() {
     const reader = new FileReader();
     reader.onload = async (event) => {
       try {
-        await axios.post('http://localhost:5001/api/cv', { base64Data: event.target.result }, config);
+        await axios.post(`${API_URL}/api/cv`, { base64Data: event.target.result }, config);
         alert('CV Updated Successfully!');
       } catch (err) {
         alert('Failed to update CV');
@@ -99,7 +100,7 @@ export default function Admin() {
   };
 
   const deleteItem = async (id, type) => {
-    await axios.delete(`http://localhost:5001/api/${type}/${id}`, config);
+    await axios.delete(`${API_URL}/api/${type}/${id}`, config);
     if (type === 'projects') fetchProjects();
     else if (type === 'blogs') fetchBlogs();
     else fetchInbox();

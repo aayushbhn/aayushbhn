@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 
 let globalProjectsCache = null;
 
@@ -13,7 +14,7 @@ export const Projects = () => {
     if (globalProjectsCache) return;
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/projects');
+        const response = await axios.get(`${API_URL}/api/projects`);
         globalProjectsCache = response.data;
         setProjects(response.data);
       } catch (error) {

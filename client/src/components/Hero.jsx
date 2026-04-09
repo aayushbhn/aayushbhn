@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import API_URL from '../config';
 
 export const Hero = () => {
   const { scrollY } = useScroll();
@@ -54,7 +55,7 @@ export const Hero = () => {
           <motion.a 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="http://localhost:5001/api/cv" 
+            href={`${API_URL}/api/cv`}
             download
             className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 hover:to-brand-300 text-white rounded-full font-bold transition-all duration-300 shadow-[0_0_30px_rgba(74,120,123,0.5)]"
           >
