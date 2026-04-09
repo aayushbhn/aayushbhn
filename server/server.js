@@ -15,9 +15,24 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 // PostgreSQL connection (Supabase)
+console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
+});
+
+pool.on('error', (err) => {
+  console.error('Unexpected pool error:', err.message);
+});
+
+// Health check
+app.get('/api/health', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.json({ status: 'ok', db: 'connected', time: result.rows[0].now });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
 // Helper functions
@@ -109,7 +124,7 @@ const initDB = async () => {
 
     console.log("Database initialized successfully.");
   } catch (err) {
-    console.error("DB Init Error:", err);
+    console.error("DB Init Error:", err.message);
   }
 };
 initDB();

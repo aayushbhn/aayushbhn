@@ -6,6 +6,7 @@ import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Blogs } from './components/Blogs';
 import { Contact } from './components/Contact';
+import { Footer } from './components/Footer';
 import Admin from './pages/Admin';
 import ProjectDetail from './pages/ProjectDetail';
 import BlogDetail from './pages/BlogDetail';
@@ -26,6 +27,7 @@ const PublicLayout = () => (
       <Projects />
       <Blogs />
       <Contact />
+      <Footer />
     </main>
   </div>
 );
